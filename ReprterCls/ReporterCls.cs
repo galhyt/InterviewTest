@@ -9,6 +9,6 @@ namespace ReprterCls
 {
     public abstract class Reporter
     {
-        public abstract byte[] CreateReport(Parser[] parsers);
+        public abstract byte[] CreateReport(params Parser[] parsers);
     }
 }

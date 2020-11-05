@@ -58,6 +58,10 @@
       <Project>{0A21376A-DE68-435F-9867-B812FC3DE35A}</Project>
       <Name>ParserCls</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReprterCls\ReprterCls.csproj">
+      <Project>{32e59572-468b-4044-a3a7-8ee8b9811d0d}</Project>
+      <Name>ReprterCls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

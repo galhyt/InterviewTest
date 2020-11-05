@@ -4,28 +4,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace ReprterCls
 {
     public class JsonRepoter : Reporter
     {
-        public override byte[] CreateReport(Parser[] parsers)
+        public override byte[] CreateReport(params Parser[] parsers)
         {
-            string ret = "{";
+            JObject json = new JObject();
             foreach (Parser prs in parsers)
             {
-                StringBuilder json = new StringBuilder();
                 Dictionary<string, string> dic = prs.getNextValue();
-                string type = "";
-                if (dic != null) type = dic["type"];
+                if (dic == null) continue;
+                string type = dic["type"];
+                JArray arr = new JArray();
+
                 while (dic != null)
                 {
-                    json.AppendFormat("{{height: {0}, width: {1} }}");
+                    arr.Add(new JObject((from string key in dic.Keys
+                                         select new JProperty(key, dic[key])).ToArray()));
                     dic = prs.getNextValue();
                 }
 
-                ret = string.Format("{{ {0}: {{ {1} }}", 
+                json.Add(new JProperty(type, arr));
             }
+
+            return Encoding.Unicode.GetBytes(json.ToString());
         }
     }
 }

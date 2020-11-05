@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using ParserCls;
+using ReprterCls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,10 @@ namespace InterviewTest
             H1Parser h1p = new H1Parser();
             h1p.parseContent(h1s);
 
+            JsonRepoter jrep = new JsonRepoter();
+            var ret = jrep.CreateReport(imgp, h1p);
 
+            Console.Write(Encoding.Unicode.GetString(ret));
         }
     }
 }

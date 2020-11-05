@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +11,18 @@ namespace ParserCls
     {
         private int n = 0;
         private string[] _h1s;
-        public override void parseContent(object[] elements)
+        public override void parseContent(string elemType, HtmlDocument htmlDoc)
         {
-            _h1s = (string[])elements;
+            object[] elems = GetElements(elemType, x => x.InnerText, htmlDoc);
+            _h1s = (from el in elems
+                    select (string)el).ToArray();
         }
 
-        public override Dictionary<string, string> getNextValue()
+        public override Dictionary<string, object> getNextValue()
         {
             if (n >= _h1s.Count()) return null;
 
-            Dictionary<string, string> ret = new Dictionary<string, string>
+            Dictionary<string, object> ret = new Dictionary<string, object>
             {
                 { "type",  "h1" },
                 {"innertext",  _h1s[n]}

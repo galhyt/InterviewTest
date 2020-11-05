@@ -11,4 +11,18 @@ namespace ReprterCls
     {
         public abstract byte[] CreateReport(params Parser[] parsers);
     }
+
+    public class ReporterFactory
+    {
+        public static Reporter GetImpl(string type)
+        {
+            switch  (type)
+            {
+                case "json":
+                default:
+                    return new JsonRepoter();
+                    break;
+            }
+        }
+    }
 }

@@ -15,9 +15,9 @@ namespace ReprterCls
             JObject json = new JObject();
             foreach (Parser prs in parsers)
             {
-                Dictionary<string, string> dic = prs.getNextValue();
+                Dictionary<string, object> dic = prs.getNextValue();
                 if (dic == null) continue;
-                string type = dic["type"];
+                string type = dic["type"].ToString();
                 JArray arr = new JArray();
 
                 while (dic != null)
